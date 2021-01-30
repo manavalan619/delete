@@ -1,9 +1,9 @@
 name: aws_ec2_deployments_for_ec2instance
 on:
   push:
-    branches: [maiin]
+    branches: [main]
   pull_request:
-    branches: [maiin]
+    branches: [main]
 
 jobs:
   upload_S3_bucket:
