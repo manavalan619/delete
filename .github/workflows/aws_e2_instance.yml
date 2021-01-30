@@ -24,7 +24,6 @@ jobs:
           ng build --configuration=production
           cd dist && ls
       - name: Uploaging dist files into the S3 bucket
-        working-directory: ./application/client/desktop/ec2instance
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: --acl public-read --delete
@@ -33,4 +32,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: "dist/ec2instance"
+          SOURCE_DIR: "/application/client/desktop/ec2instance/dist/ec2instance"
