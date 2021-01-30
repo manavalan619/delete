@@ -22,7 +22,7 @@ jobs:
       - name: echo the env
         run: echo $AWS_REGION
       - name: Creating the S3 bucket
-        run: aws s3api create-bucket --bucket ec2instance-3963  --region $AWS_REGION --create-bucket-configuration LocationConstraint=$AWS_REGION
+        run: aws s3api create-bucket --bucket ec2instance-3963  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
       - name: list the s3 bucket
         run: aws s3api list-buckets --query "Buckets[].Name"
   Upload_S3_Bucket:
