@@ -22,6 +22,7 @@ jobs:
         run: |
           npm install
           ng build --configuration=production
+          cd dist && ls
       - name: Uploaging dist files into the S3 bucket
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
