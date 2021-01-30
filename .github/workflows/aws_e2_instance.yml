@@ -20,9 +20,9 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{env.AWS_REGION}}
       - name: echo the env
-        run: echo ${{ env.AWS_REGION }}
+        run: echo $AWS_REGION
       - name: Creating the S3 bucket
-        run: aws s3api create-bucket --bucket ec2instanceaqs  --region eu-west-1 --create-bucket-configuration LocationConstraint=eu-west-1
+        run: aws s3api create-bucket --bucket ec2instance-3963  --region $AWS_REGION --create-bucket-configuration LocationConstraint=$AWS_REGION
       - name: list the s3 bucket
         run: aws s3api list-buckets --query "Buckets[].Name"
   Upload_S3_Bucket:
