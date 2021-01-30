@@ -24,6 +24,7 @@ jobs:
           ng build --configuration=production
           cd dist && ls
       - name: Uploaging dist files into the S3 bucket
+        working-directory: ./application/client/desktop/ec2instance
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: --acl public-read --delete
