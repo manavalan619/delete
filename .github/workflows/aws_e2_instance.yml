@@ -21,7 +21,8 @@ jobs:
           aws-region: ${{env.AWS_REGION}}
       - name: Creating the S3 bucket
         run: aws s3api create-bucket --bucket ec2instanceaqs  --region eu-west-1 --create-bucket-configuration LocationConstraint=eu-west-1
-
+      - name: echo the env
+        run: echo ${{ env.AWS_REGION }}
   Upload_S3_Bucket:
     needs: Prerequisites
     runs-on: ubuntu-latest
