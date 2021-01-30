@@ -1,0 +1,29 @@
+table.table-bordered {
+    border: 1px solid black;
+    margin-top: 20px;
+    text-align: left;
+    table-layout: auto;
+    color: black;
+    background-color: white;
+}
+
+table.table-bordered>thead>tr>th {
+    border: 1px solid black;
+    color: black;
+    background-color: darkgrey;
+}
+
+table.table-bordered>tbody>tr>td {
+    border: 1px solid black;
+}
+
+// [data-href] {
+//     cursor: pointer;
+// }
+.demo {
+    cursor: pointer;
+}
+
+p {
+    font-family: Lato;
+}

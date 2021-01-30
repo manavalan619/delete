@@ -4,15 +4,13 @@ import { I18NextModule } from 'angular-i18next';
 import { TemplateComponent } from './template.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        I18NextModule.forRoot(),
-    ],
-    declarations: [
-        TemplateComponent,
-    ], 
-    exports: [
-        TemplateComponent,
-    ]
+  imports: [
+CommonModule,
+I18NextModule.forRoot()
+],
+  declarations: [
+TemplateComponent
+]
+  
 })
 export class TemplateModule { }

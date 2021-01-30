@@ -1,0 +1,25 @@
+<h2>Bootstrap</h2>
+
+<div class="table table-striped" name=grid_template-inlg>
+    <table id="table" class="table table-bordered" data-show-header="true" data-pagination="true" data-id-field="name">
+        <thead class="table table-hover">
+            <tr>
+                <th *ngFor="let col of columnDefs ">
+                    {{col.headerName}}
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-design" *ngIf="rowData.length==0">
+            <td style="text-align: center;" colspan="5">No Data Found</td>
+        </tbody>
+        <tbody class="table-design" *ngIf="rowData.length>0">
+            <tr (click)="onSelectionChanged(values); " *ngFor=" let values of rowData | slice: (page-1) * pageSize :(page-1) * pageSize + pageSize " class="demo">
+                <td>{{values.Name}}</td>
+                <td>{{values.Email}} </td>
+                <td>{{values._id}} </td>
+            </tr>
+            <br>
+            <ngb-pagination class="d-flex justify-content-start " [(page)]=" page " [maxSize]="5 " [rotate]="true " [pageSize]="pageSize " [collectionSize]="rowData.length " [boundaryLinks]="true "></ngb-pagination>
+        </tbody>
+    </table>
+</div>
