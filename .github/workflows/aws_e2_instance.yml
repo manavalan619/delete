@@ -20,7 +20,7 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{env.AWS_REGION}}
       - name: Creating the S3 bucket
-        run: aws s3api create-bucket --bucket ec2instance-3963 --region ${{env.AWS_REGION}}
+        run: aws s3api create-bucket --bucket ec2instance-3963 --region us-west-2
 
   Upload_S3_Bucket:
     needs: Prerequisites
