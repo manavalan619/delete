@@ -9,5 +9,5 @@ jobs:
   upload_S3_bucket:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup repo
-        run: It also working fine dude
+    - name: Setup repo
+      run: It also working fine dude
