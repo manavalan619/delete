@@ -23,6 +23,7 @@ jobs:
         run: aws s3api create-bucket --bucket ec2instance-3963 --region us-east-1
 
   upload_S3_bucket:
+    needs: Prerequisites
     runs-on: ubuntu-latest
     steps:
       - name: Setup repo
