@@ -10,7 +10,7 @@ env:
   aws-region: us-east-1   
 
 jobs:
-  upload_S3_bucket:
+  Prerequisites:
     runs-on: ubuntu-latest
     steps:
       - name: Configure the aws account
@@ -21,6 +21,10 @@ jobs:
           aws-region: ${{env.aws-region}}
       - name: Creating the S3 bucket
         run: aws s3api create-bucket --bucket ec2instance-3963 --region us-east-1
+
+  upload_S3_bucket:
+    runs-on: ubuntu-latest
+    steps:
       - name: Setup repo
         uses: actions/checkout@v2
       - name: Install the node
@@ -34,8 +38,6 @@ jobs:
         run: |
           npm install
           ng build --configuration=production
-          cd dist && ls
-          pwd
       - name: Uploaging dist files into the S3 bucket
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
