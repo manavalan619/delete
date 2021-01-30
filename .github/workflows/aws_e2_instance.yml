@@ -7,22 +7,22 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID}}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  aws-region: us-east-1   
+  AWS_REGION: ${{ secrets.AWS_REGION }}   
 
 jobs:
   Prerequisites:
     runs-on: ubuntu-latest
     steps:
-      - name: Configure the aws account
+      - name: Configure the aws cli
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{env.aws-region}}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{env.AWS_REGION}}
       - name: Creating the S3 bucket
         run: aws s3api create-bucket --bucket ec2instance-3963 --region us-east-1
 
-  upload_S3_bucket:
+  Upload_S3_Bucket:
     needs: Prerequisites
     runs-on: ubuntu-latest
     steps:
@@ -32,9 +32,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12  
-      - name: Installing ng/cli
+      - name: Installing angular/cli
         run: npm install -g @angular/cli
-      - name: Installing the node modules & build the dist
+      - name: Installing the node modules & build the project
         working-directory: ./application/client/desktop/ec2instance
         run: |
           npm install
@@ -47,7 +47,7 @@ jobs:
           AWS_S3_BUCKET: ec2instance-3963
           AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_REGION: ${{ env.AWS_REGION }}
           SOURCE_DIR: "application/client/desktop/ec2instance/dist/ec2instance"
       - name: Enable the static webhosting
         run: aws s3 website s3://ec2instance-3963/ --index-document index.html --error-document error.html
