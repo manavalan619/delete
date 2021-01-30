@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup repo
-        name: It also working fine dude
+        run: It also working fine dude
