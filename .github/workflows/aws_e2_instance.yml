@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup repo
-      run: It also working fine dude
+      run: echo "ts alos kdwidhib"

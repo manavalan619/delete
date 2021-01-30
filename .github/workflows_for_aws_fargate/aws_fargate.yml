@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup repo
-      run: Working fine dude
+      run: echo "Its working fine"
