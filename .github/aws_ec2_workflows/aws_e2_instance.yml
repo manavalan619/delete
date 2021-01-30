@@ -1,0 +1,13 @@
+name: aws_ec2_deployments_for_ec2instance
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  upload_S3_bucket:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup repo
+        name: It also working fine dude

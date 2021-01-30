@@ -1,0 +1,13 @@
+name: aws_ec2_deployments_for_fargate
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  upload_S3_bucket:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup repo
+        run: Working fine dude
