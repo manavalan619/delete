@@ -17,12 +17,13 @@ jobs:
           node-version: 12  
       - name: Installing ng/cli
         run: npm install -g @angular/cli
-      - name: Installing the node modules
+      - name: Installing the node modules & build the dist
         working-directory: ./application/client/desktop/ec2instance
-        run: npm install
-      - name: Production build
-        run: ng build --configuration=production
-      - uses: jakejarvis/s3-sync-action@v0.5.1
+        run: |
+          npm install
+          ng build --configuration=production
+      - name: Uploaging dist files into the S3 bucket
+        uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: --acl public-read --delete
         env:
