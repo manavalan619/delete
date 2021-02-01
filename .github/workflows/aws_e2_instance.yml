@@ -53,4 +53,4 @@ jobs:
           AWS_REGION: ${{ env.AWS_REGION }}
           SOURCE_DIR: "application/client/desktop/ec2instance/dist/ec2instance"
       - name: Enable the static webhosting
-        run: aws s3 website s3://ec2instance-3963/ --index-document index.html --error-document error.html
+        run: aws s3 website s3://${{ env.AWS_S3_BUCKET_NAME }}/ --index-document index.html --error-document error.html
