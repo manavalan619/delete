@@ -10,6 +10,21 @@ env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
   AWS_S3_BUCKET_NAME: ec2instance-3963
 jobs:
+  validation:
+    runs-on: ubuntu-latest 
+    outputs:
+      checks_the_s3_bucket: ${{ steps.check_s3_bucket.outputs.configuration }}
+    steps: 
+    - name: aws configure
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{env.AWS_REGION}}
+    - name: checks_the_s3_bucket_present_or_not
+      run: |
+        aws s3api list-buckets --query "Buckets[].Name"
+        echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
   Prerequisites:
     runs-on: ubuntu-latest
     steps:
@@ -53,4 +68,4 @@ jobs:
           AWS_REGION: ${{ env.AWS_REGION }}
           SOURCE_DIR: "application/client/desktop/ec2instance/dist/ec2instance"
       - name: Enable the static webhosting
-        run: aws s3 website s3://${{ env.AWS_S3_BUCKET_NAME }}/ --index-document index.html --error-document error.html
+        run: aws s3 website s3://${{env.AWS_S3_BUCKET_NAME}}/ --index-document index.html --error-document error.html
