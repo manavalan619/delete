@@ -30,7 +30,7 @@ jobs:
         #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
     - name: Error handling
       run: |
-        aws s3 ls s3://ec2instance-3963
+        aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
         echo $SMS
       env:
         SMS: ${{job.status}}
