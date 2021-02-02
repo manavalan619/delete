@@ -29,9 +29,12 @@ jobs:
         echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
         #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
     - name: Error handling
+      run: |
+        aws s3 ls s3://ec2instance-3963
+        echo $SMS
       env:
         SMS: ${{job.status}}
-      run: echo $SMS
+
 
         
     # - name: make for-loop       
