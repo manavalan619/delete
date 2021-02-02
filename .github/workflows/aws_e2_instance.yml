@@ -31,9 +31,11 @@ jobs:
     - name: Error handling
       run: |
         aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
-        echo $SMS
       env:
         SMS: ${{job.status}}
+    - name: FInd the values
+      run: echo $SMS
+
 
 
         
