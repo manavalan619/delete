@@ -29,7 +29,7 @@ jobs:
     - name: make for-loop
       env: 
         Bucket_list: "$(aws s3api list-buckets --query "Buckets[].Name")"
-      run: for i in $Bucket_list;
+      run: for i in $Bucket_list; do echo "$i"; done
         # echo "$i"
   Prerequisites:
     needs: validation
