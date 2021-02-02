@@ -31,6 +31,10 @@ jobs:
       run: |
         for i in ${{env.BUCKETLIST}}; do echo "$i"; done
         echo $i
+    - name: echo one
+      run: echo "$i"
+    - name: echo two
+      run: echo $i
   Prerequisites:
     needs: validation
     if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance-3963'
