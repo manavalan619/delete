@@ -26,9 +26,13 @@ jobs:
       run: |
         aws s3api list-buckets --query "Buckets[].Name"
         echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
+    - name: make for-loop
+      run: |
+        for i in $(aws s3api list-buckets --query "Buckets[].Name")
+        echo $i
   Prerequisites:
     needs: validation
-    if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance'
+    if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance-3963'
     runs-on: ubuntu-latest
     steps:
       - name: Configure the aws cli
@@ -43,6 +47,7 @@ jobs:
         run: aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
       - name: list the s3 bucket
         run: aws s3api list-buckets --query "Buckets[].Name"
+      
   Upload_S3_Bucket:
     needs: Prerequisites
     runs-on: ubuntu-latest
