@@ -9,7 +9,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: ${{ secrets.AWS_REGION }}
   AWS_S3_BUCKET_NAME: ec2instance-3963
-  BUCKETLIST: "$(aws s3api list-buckets --query "Buckets[].Name")"
+  BUCKETLIST: $(aws s3api list-buckets --query "Buckets[].Name")
 jobs:
   validation:
     runs-on: ubuntu-latest 
