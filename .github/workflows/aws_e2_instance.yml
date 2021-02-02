@@ -9,7 +9,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: ${{ secrets.AWS_REGION }}
   AWS_S3_BUCKET_NAME: ec2instance-3963
-  Bucket_list: "$(aws s3api list-buckets --query "Buckets[].Name")"
+  BUCKETLIST: "$(aws s3api list-buckets --query "Buckets[].Name")"
 jobs:
   validation:
     runs-on: ubuntu-latest 
@@ -28,7 +28,7 @@ jobs:
         aws s3api list-buckets --query "Buckets[].Name"
         echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
     - name: make for-loop       
-      run: for i in ${{env.Bucket_list}}; do echo "$i"; done
+      run: for i in ${{env.BUCKETLIST}}; do echo "$i"; done
         # echo "$i"
   Prerequisites:
     needs: validation
