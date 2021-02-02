@@ -26,7 +26,7 @@ jobs:
       id: checks_the_s3_bucket
       run: |
         aws s3api list-buckets --query "Buckets[].Name"
-       echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
+        echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
         #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
     - name: Error handling
           if: always()
