@@ -28,8 +28,9 @@ jobs:
         aws s3api list-buckets --query "Buckets[].Name"
         echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
     - name: make for-loop       
-      run: for i in ${{env.BUCKETLIST}}; do echo "$i"; done
-        # echo "$i"
+      run: |
+        for i in ${{env.BUCKETLIST}}; do echo "$i"; done
+        echo $i
   Prerequisites:
     needs: validation
     if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance-3963'
