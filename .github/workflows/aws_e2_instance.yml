@@ -13,7 +13,7 @@ jobs:
   validation:
     runs-on: ubuntu-latest 
     outputs:
-      checks_the_s3_bucket: ${{ steps.check_s3_bucket.outputs.configuration }}
+      checks_the_s3_bucket: ${{ steps.checks_the_s3_bucket.outputs.checks_the_s3_bucket }}
     steps: 
     - name: aws configure
       uses: aws-actions/configure-aws-credentials@v1
@@ -22,10 +22,13 @@ jobs:
         aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{env.AWS_REGION}}
     - name: checks_the_s3_bucket_present_or_not
+      id: checks_the_s3_bucket
       run: |
         aws s3api list-buckets --query "Buckets[].Name"
         echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
   Prerequisites:
+    needs: validation
+    if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance-3963'
     runs-on: ubuntu-latest
     steps:
       - name: Configure the aws cli
