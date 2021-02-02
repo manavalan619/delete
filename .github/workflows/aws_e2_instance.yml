@@ -29,7 +29,7 @@ jobs:
     - name: make for-loop
       run: |
         for i in $(aws s3api list-buckets --query "Buckets[].Name")
-        echo "$i"
+#        echo "$i"
   Prerequisites:
     needs: validation
     if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance-3963'
