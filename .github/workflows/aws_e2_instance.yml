@@ -29,7 +29,7 @@ jobs:
         echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
     - name: make for-loop       
       run: |
-        for i in ${{env.BUCKETLIST}}; do echo "$i"; done
+        for $i in ${{env.BUCKETLIST}}; do echo "$i"; done
         echo $i
     - name: echo one
       run: echo "$i"
