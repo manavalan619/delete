@@ -67,7 +67,7 @@ jobs:
           cd application/services/custom_services/apigateway
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-  Prerequisites:
+  Prerequisites:  
     needs: validation
     if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance-3963'
     runs-on: ubuntu-latest
