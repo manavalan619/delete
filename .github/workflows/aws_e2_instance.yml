@@ -12,34 +12,31 @@ env:
   BUCKETLIST: $(aws s3api list-buckets --query "Buckets[].Name")
 jobs:
   validation:
-    runs-on: ubuntu-latest 
-    outputs:
-      checks_the_s3_bucket: ${{ steps.checks_the_s3_bucket.outputs.checks_the_s3_bucket }}
-    steps: 
-    - name: aws configure
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{env.AWS_REGION}}
-    - name: checks_the_s3_bucket_present_or_not
-      id: checks_the_s3_bucket
-      run: |
-        aws s3api list-buckets --query "Buckets[].Name"
-        echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
-        #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
-    - name: Error handling
-      run: |
-        aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
-      env:
-        SMS: ${{job.status}}
-    - name: FInd the values
-      run: echo $SMS
+    runs-on: ubuntu-latest
+    # outputs:
+    #   checks_the_s3_bucket: ${{ steps.checks_the_s3_bucket.outputs.checks_the_s3_bucket }}
+    steps:
+      - name: aws configure
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{env.AWS_REGION}}
+      # - name: checks_the_s3_bucket_present_or_not
+      #   id: checks_the_s3_bucket
+      #   run: |
+      #     aws s3api list-buckets --query "Buckets[].Name"
+      #     echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
+      #     #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
+      # - name: Error handling
+      #   run: |
+      #     aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
+      #   env:
+      #     SMS: ${{job.status}}
+      # - name: FInd the values
+      #   run: echo $SMS
 
-
-
-        
-    # - name: make for-loop       
+    # - name: make for-loop
     #   run: |
     #     for $i in ${{env.BUCKETLIST}}; do echo "$i"; done
     #     echo $i
@@ -47,6 +44,29 @@ jobs:
     #   run: echo "$i"
     # - name: echo two
     #   run: echo $i
+  Build_and_upload_docker_iamges_to_ECR:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure the aws cli
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{env.AWS_REGION}}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Checkout_Repo
+        uses: actions/checkout@main
+      - name: Build, tag, and push image to Amazon ECR
+        env: 
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPO_NAME }}
+          IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
+        run: |
+          cd application/services/custom_services/apigateway
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
   Prerequisites:
     needs: validation
     if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance-3963'
@@ -64,7 +84,7 @@ jobs:
         run: aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
       - name: list the s3 bucket
         run: aws s3api list-buckets --query "Buckets[].Name"
-      
+
   Upload_S3_Bucket:
     needs: Prerequisites
     runs-on: ubuntu-latest
