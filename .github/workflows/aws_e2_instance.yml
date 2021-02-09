@@ -61,7 +61,7 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         env: 
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: geppetto_generatedcode-sampleapplicatio_6199
+          ECR_REPOSITORY: 967636366309.dkr.ecr.us-east-1.amazonaws.com/geppetto_generatedcode-sampleapplicatio_6199
           IMAGE_TAG: 1.0
         run: |
           cd application/services/custom_services/apigateway
