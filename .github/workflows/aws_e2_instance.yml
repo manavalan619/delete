@@ -29,14 +29,12 @@ jobs:
       #     aws s3api list-buckets --query "Buckets[].Name"
       #     echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
       #     #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
-      # - name: Error handling
-      #   run: |
-      #     aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
-      #   env:
-      #     SMS: ${{job.status}}
-      # - name: FInd the values
-      #   run: echo $SMS
-
+      - name: Error handling
+        run: |
+          aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
+      - name: Just for testing 
+        if: ${{ always() }}
+        run: yeah is working
     # - name: make for-loop
     #   run: |
     #     for $i in ${{env.BUCKETLIST}}; do echo "$i"; done
