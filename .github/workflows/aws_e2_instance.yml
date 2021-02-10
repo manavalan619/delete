@@ -70,7 +70,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY-devfeatures:$IMAGE_TAG
           echo ":)"
       - name: check the if-condition
-        if: ${{env.PROJECT_NAME}}=='generatedcode-sampleapplicaton-1234'
+        if: ${{env.PROJECT_NAME}}=='generatedcode-sampleapplicaton-123'
         run: echo ":)"
   Prerequisites:  
     needs: validation
