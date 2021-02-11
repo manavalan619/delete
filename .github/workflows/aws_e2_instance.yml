@@ -13,6 +13,9 @@ env:
   PROJECT_NAME: generatedcode-sampleapplicaton-1234
 jobs:
   validation:
+    outputs:
+      configuration: ${{ steps.list-s3-bucket.outputs.SELECTED_COLOR }}
+      branch: ${{ steps.checking.outputs.SELECTED_COLOR1 }}
     runs-on: ubuntu-latest
     # outputs:
     #   checks_the_s3_bucket: ${{ steps.checks_the_s3_bucket.outputs.checks_the_s3_bucket }}
@@ -30,21 +33,13 @@ jobs:
       #     echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
       #     #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
       - name: Error handling
-        run: |
-          for f in $list;
-          do
-          if [[ $f == "1" ]]; then
-          echo "Works for 1"
-          fi
-          if [[ $f == "10" ]]; then
-          aws s3api list-buckets --query "Buckets[].Name"
-          echo "Works for 10"
-          fi
-          done
+        run: echo '::set-output name=SELECTED_COLOR::acmeui	delete1	ec2instance-3963	ecsfargate	elasticbeanstalk-us-east-1-967636366309	geppetto-demo-delete	geppetto-dev	geppetto-stagegeppetto-training-app	geppettodist	geppettodistribution	geppettodistro	harish321	ibmavp-nissan	ibmavp-nissan-wordpress	lazy-test	newstage-geppetto	nisssan-dev	ram-geppetto-test	readmegeppetto	site-under-construction-geppetto	site-under-construction-hp	site-under-construction-nissan	swaggerui1'
+        id: list-s3-bucket
  #         aws ecr create-repository --repository-name generatedcode-sampleapplicaton-1234-devfeatures --image-scanning-configuration scanOnPush=true  --region us-east-1
  #         aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
-        env:
-          list: 5
+      - name: for demo
+        run: echo '::set-output name=SELECTED_COLOR1::acmeui'
+        id: checking
       # - name: Just for testing
       #   if: ${{ always() }}
       #   run: echo its working
@@ -57,8 +52,12 @@ jobs:
     # - name: echo two
     #   run: echo $i
   Build_and_upload_docker_iamges_to_ECR:
+    needs: validation
+    if: needs.validation.outputs.configuration == 'delete1'
     runs-on: ubuntu-latest
     steps:
+      # - name: echo the values
+      #   run: echo validation.outputs.configuration
       - name: Configure the aws cli
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -85,7 +84,8 @@ jobs:
         run: echo ":)"
   Prerequisites:
     needs: validation
-    if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance-3963'
+    # if: needs.validation.outputs.branch == 'delete1'
+    if: needs.validation.outputs.branch == 'acmeui'
     runs-on: ubuntu-latest
     steps:
       - name: Configure the aws cli
