@@ -53,7 +53,6 @@ jobs:
     #   run: echo $i
   Build_and_upload_docker_iamges_to_ECR:
     needs: validation
-    if: needs.validation.outputs.configuration == 'delete1'
     runs-on: ubuntu-latest
     steps:
       # - name: echo the values
