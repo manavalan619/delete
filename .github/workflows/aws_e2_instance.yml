@@ -31,9 +31,12 @@ jobs:
       #     #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
       - name: Error handling
         run: |
-          aws ecr create-repository --repository-name generatedcode-sampleapplicaton-1234-devfeatures --image-scanning-configuration scanOnPush=true  --region us-east-1
-          aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
-      # - name: Just for testing 
+          for f in $list; do echo "f"; done
+ #         aws ecr create-repository --repository-name generatedcode-sampleapplicaton-1234-devfeatures --image-scanning-configuration scanOnPush=true  --region us-east-1
+ #         aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
+        env:
+          list: 5
+      # - name: Just for testing
       #   if: ${{ always() }}
       #   run: echo its working
     # - name: make for-loop
@@ -59,11 +62,11 @@ jobs:
       - name: Checkout_Repo
         uses: actions/checkout@main
       - name: Build, tag, and push image to Amazon ECR
-        env: 
+        env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{env.PROJECT_NAME}}
           IMAGE_TAG: 1.0
-        run: |  
+        run: |
           cd application/services/custom_services/apigateway
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY-devfeatures:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY-devfeatures:$IMAGE_TAG
@@ -71,7 +74,7 @@ jobs:
       - name: check the if-condition
         if: ${{env.PROJECT_NAME}}=='generatedcode-sampleapplicaton-123'
         run: echo ":)"
-  Prerequisites:  
+  Prerequisites:
     needs: validation
     if: needs.validation.outputs.checks_the_s3_bucket == 'ec2instance-3963'
     runs-on: ubuntu-latest
