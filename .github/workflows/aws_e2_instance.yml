@@ -37,6 +37,7 @@ jobs:
           echo "Works for 1"
           fi
           if [[ $f == "10" ]]; then
+          aws s3api list-buckets --query "Buckets[].Name"
           echo "Works for 10"
           fi
           done
