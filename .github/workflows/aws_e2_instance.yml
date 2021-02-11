@@ -85,7 +85,7 @@ jobs:
   Prerequisites:
     needs: validation
     # if: needs.validation.outputs.branch == 'delete1'
-    if: needs.validation.outputs.branch == 'acmeui2'
+    if: needs.validation.outputs.branch == 'acmeui'
     runs-on: ubuntu-latest
     steps:
       - name: Configure the aws cli
