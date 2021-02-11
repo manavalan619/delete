@@ -74,8 +74,8 @@ jobs:
           ECR_REPOSITORY: ${{env.PROJECT_NAME}}
           IMAGE_TAG: 1.0
         run: |
-          chmod +x "${GITHUB_WORKSPACE}/.github/script.sh"
-          "${GITHUB_WORKSPACE}/.github/script.sh"
+          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/script.sh"
+          "${GITHUB_WORKSPACE}/.github/workflows/script.sh"
           cd application/services/custom_services/apigateway
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY-devfeatures:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY-devfeatures:$IMAGE_TAG
