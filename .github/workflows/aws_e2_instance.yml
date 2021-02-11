@@ -31,7 +31,7 @@ jobs:
       #     #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
       - name: Error handling
         run: |
-          for f in $list; do echo "$f"
+          for f in $list;
           do
           if [[ $f == "1" ]]; then
           echo "Works for 1"
