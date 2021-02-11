@@ -31,6 +31,7 @@ jobs:
       #     #  echo "::set-output name=checks_the_s3_bucket::$(aws s3api list-buckets --query "Buckets[].Name")"
       - name: Error handling
         run: |
+          aws ecr create-repository --repository-name generatedcode-sampleapplicaton-1234-devfeatures --image-scanning-configuration scanOnPush=true  --region us-east-1
           aws s3api create-bucket --bucket ${{ env.AWS_S3_BUCKET_NAME }}  --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
       # - name: Just for testing 
       #   if: ${{ always() }}
