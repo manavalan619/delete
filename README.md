@@ -1,6 +1,16 @@
-# React 16 Generation still in alpha
-![Still Working](https://readmegeppetto.s3.amazonaws.com/react_readme.png)
+# Deploy the your mano-1234 applicaton by using github actions
+![Github Actions](https://readmegeppetto.s3.amazonaws.com/githubactions.jpeg)
 
-React generation is still under developing, is totally your own risk while run the generated application.
+Deploy the your generated application in aws by using github actions.
 
-Thanks for using [Geppetto Builder](https://stage.app.geppettosoftware.com).
+- Clone the <> repo and paste the all folders and files to your own repo.
+
+- First copy the github action folder in the below path and paste in root directory, by using the below commands in the terminal .
+```sh
+$ mkdir ../../../../.github && cp -r * ../../../../.github/
+```
+- An github actions will triggered when code is pushed to branch(master, main and geppetto)  in a repository.
+- Before the push code to to your repo you need to give your aws details in github secrets. What are keys you need to give as below.
+| Attempt | #1 | #2 |
+| :---: | :---: | :---: |
+| Seconds | 301 | 283 |
