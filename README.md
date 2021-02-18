@@ -11,6 +11,6 @@ $ mkdir ../../../../.github && cp -r * ../../../../.github/
 ```
 - An github actions will triggered when code is pushed to branch(master, main and geppetto)  in a repository.
 - Before the push code to to your repo you need to give your aws details in github secrets. What are keys you need to give as below.
-| Attempt | #1 | #2 |
-| :---: | :---: | :---: |
+| Attempt | #1  | #2  |
+| :---:   | :-: | :-: |
 | Seconds | 301 | 283 |
