@@ -10,7 +10,8 @@ Deploy the your generated application in aws by using github actions.
 $ mkdir ../../../../.github && cp -r * ../../../../.github/
 ```
 - An github actions will triggered when code is pushed to branch(master, main and geppetto)  in a repository.
-- Before the push code to to your repo you need to give your aws details in github secrets. What are keys you need to give as below.
+
+- Before the push code to to your repo you need to give your aws details in [github secrets](https://docs.github.com/en/actions/reference/encrypted-secrets). What are keys you need to give as below.
 
 |s.no| Key           | Value  |
 | ---|:-------------:| :-----:|
@@ -19,6 +20,7 @@ $ mkdir ../../../../.github && cp -r * ../../../../.github/
 | 03 | [AWS_SECRET_ACCESS_KEY](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html)      |    Specifies the AWS secret key used as part of the credentials to authenticate the user. |
 | 04 | [AWS_REGION](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/)      |    AWS_REGION provides details about a specific AWS region. |
 | 05 | [AWS_ECS_CLUSTER_NAME](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create_cluster.html)      |    The name of the ECS cluster (up to 255 letters, numbers, hyphens, and underscores) |
-| 06 | [AWS_VPC_NAME](https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html)      |   The name of the VPC cluster. |
-| 07 | [AWS_VPC_SUBNET](https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html)      |    The name of the subnet created on the above AWS_VPC_NAME. |
-| 09 | [AWS_VPC_SECURITU_GROUP](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)     |    The name of the security name. |
+| 06 | [AWS_ROLE_FOR_FARGATE](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html)     |    The task execution role grants the Amazon ECS container and Fargate agents permission to make AWS API calls on your behalf. |
+| 07 | [AWS_VPC_NAME](https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html)      |   The name of the VPC cluster. |
+| 08 | [AWS_VPC_SUBNET](https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html)      |    The name of the subnet created on the above AWS_VPC_NAME. |
+| 09 | [AWS_VPC_SECURITY_GROUP](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)     |    The name of the security name. |
